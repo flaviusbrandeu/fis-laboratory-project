@@ -3,24 +3,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.fis.student.football.team.application.login.services.UserService;
 
-import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-
-        Scene scene = new Scene(root, 600, 400);
-
-        stage.setTitle("Football Team Application");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        UserService.loadUsersFromFile();
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("loginScreen.fxml")));
+        primaryStage.setTitle("Football Team Application");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
     }
 }
