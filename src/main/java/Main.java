@@ -1,7 +1,11 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.fis.student.football.team.application.login.services.UserService;
+
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -10,10 +14,12 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Label label=new Label("Football Team Application");
-        Scene scene=new Scene(label);
-        primaryStage.setScene(scene);
+    public void start(Stage primaryStage) throws Exception {
+        UserService.loadUsersFromFile();
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("loginScreen.fxml")));
+        primaryStage.setTitle("Football Team Application");
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 }
